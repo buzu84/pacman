@@ -9,8 +9,9 @@ class Board extends Component {
       <div className="board">
         <Pacman />
         <Ghost color={'red'}/>
-        // <Ghost color={'yellow'}/>
-        // <Ghost color={'pink'}/>
+        <Ghost color={'yellow'}/>
+        <Ghost color={'pink'}/>
+        <Ghost color={'blue'}/>
       </div>
     )
   }
