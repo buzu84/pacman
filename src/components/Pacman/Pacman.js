@@ -25,11 +25,12 @@ class Pacman extends Component {
   }
 
   render () {
+    const { direction, position } = this.state;
     return (
       <div
-      className="pacman"
+      className={`pacman pacman-${direction}`}
       ref={this.pacmanRef}
-      style={this.state.position}
+      style={position}
       tabIndex="0"
       onKeyDown={this.handleKeyDown}
       >
