@@ -1,8 +1,9 @@
 import React from 'react'
+import './style.css'
 
 function Header ({ score}) {
   return (
-    <div>SCORE: {score}</div>
+    <div className="header">SCORE: {score}</div>
   )
 }
 
