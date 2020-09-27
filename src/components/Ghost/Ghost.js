@@ -11,6 +11,27 @@ class Ghost extends Component {
     }
   }
 
+  componentDidMount () {
+    this.changeDirectionInterval = setInterval(this.changeDirection, 2000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.changeDirectionInterval);
+  }
+
+  changeDirection = () => {
+    const arrayOfMovement = ['up', 'right', 'down', 'left'];
+    const movement = Math.floor(Math.random() * 4);
+
+    this.setState({
+      direction: arrayOfMovement[movement],
+    }, () => {
+      console.log('direction: ', this.state.direction)
+    })
+  }
+
+  
+
   render () {
     const { color } = this.props;
     return (
