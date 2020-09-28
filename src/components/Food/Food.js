@@ -9,6 +9,11 @@ class Food extends Component {
       left: this.props.position.left
     }
   }
+
+  ate() {
+    this.setState({ hidden: !this.hidden });
+  }
+  
   render () {
     const { position, hidden } = this.state;
 
