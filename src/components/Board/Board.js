@@ -8,24 +8,57 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
+    this.pacmanRef = React.createRef();
+
+    this.foods = [];
 
     this.amountOfFood = (
       (window.innerWidth - this.props.foodSize)
       * (window.innerHeight - this.props.topScoreBoardHeight)
     ) / (this.props.foodSize * this.props.foodSize) - 1;
 
-    console.log("ile zmiesci sie jedzenia: ", this.amountOfFood);
-    console.log("wys okna: ", window.innerHeight);
-    console.log("szer okna: ", window.innerWidth);
-    console.log("wielkosc jedzenia: ", this.props.foodSize);
-    console.log("wys score panelu: ", this.props.topScoreBoardHeight);
-
+    for (let i = 0; i < this.amountOfFood; i++) {
+      this['food' + i] = React.createRef;
+    }
   }
 
+
+
   render () {
+    const { foodSize, border, topScoreBoardHeight} = this.props;
+    let foods = [];
+    let currentLeft = 1 * foodSize;
+    let currentTop = 1 * foodSize;
+
+    for (let i = 0; i < this.amountOfFood; i++) {
+      if (currentLeft + foodSize >= window.innerWidth - border) {
+        currentTop += foodSize;
+        currentLeft = 0;
+      }
+
+      if (currentTop + foodSize >= (window.innerHeight - topScoreBoardHeight - border)) {
+        break;
+      }
+
+      const position = {
+        left: currentLeft,
+        top: currentTop
+      }
+
+      currentLeft += foodSize;
+      foods.push(
+        <Food
+        key={`food-elem-${i}`}
+        position={position}
+        ref={this['food' + i]}
+        />
+      )
+    }
+
     return (
       <div className="board">
-        <Pacman />
+      {foods}
+        <Pacman ref={this.pacmanRef}/>
         <Ghost color={'red'}/>
         <Ghost color={'yellow'}/>
         <Ghost color={'pink'}/>
