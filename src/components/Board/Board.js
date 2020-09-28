@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './style.css'
 import Pacman from '../Pacman'
 import Ghost from '../Ghost'
+import Food from '../Food'
 
 class Board extends Component {
   render () {
@@ -12,6 +13,7 @@ class Board extends Component {
         <Ghost color={'yellow'}/>
         <Ghost color={'pink'}/>
         <Ghost color={'blue'}/>
+        <Food position={{top: 100, left: 100}}/>
       </div>
     )
   }
