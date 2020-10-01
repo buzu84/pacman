@@ -17,14 +17,10 @@ class Board extends Component {
       (window.innerWidth - this.props.foodSize)
       * (window.innerHeight - this.props.topScoreBoardHeight)
     ) / (this.props.foodSize * this.props.foodSize) - 1;
-    // console.log('szer okna: ', window.innerWidth);
-    // console.log('wys okna: ', window.innerHeight);
-    // console.log('wielk jedzenia: ', this.props.foodSize);
-    // console.log('wys headera: ', this.props.topScoreBoardHeight);
-    // console.log('ilosc jedzenia na ekran: ', this.amountOfFood);
+
 
     for (let i = 0; i < this.amountOfFood; i++) {
-      this['food' + i] = React.createRef;
+      this['food' + i] = React.createRef();
     }
   }
 
@@ -44,14 +40,10 @@ class Board extends Component {
     const pacmanLastX = pacmanX + pacmanSize / 2;
     const pacmanLastY = pacmanY + pacmanSize / 2;
 
-    console.log('przed for');
 
     for (let i = 0; i <= this.amountOfFood; i++) {
-      console.log("po for");
       let currentFood = this['food' + i].current;
-      console.log(currentFood);
       if (currentFood) {
-        console.log("pierwszyPierwszy if X")
         let currentFoodX = currentFood.state.position.left;
         let currentFoodY = currentFood.state.position.top;
         let currentFoodSize = currentFood.props.foodSize;
@@ -61,10 +53,8 @@ class Board extends Component {
         if (
           (pacmanX >= currentFoodX && pacmanX <= currentFoodLastX)
           || (pacmanLastX >= currentFoodX && pacmanLastX <= currentFoodLastX)) {
-          console.log("pierwszy if X")
           if ((pacmanY >= currentFoodY && pacmanY <= currentFoodLastY)
             || (pacmanLastY >= currentFoodY && pacmanLastY <= currentFoodLastY)) {
-            console.log("pierwszy if Y")
             if (!currentFood.state.hidden) {
               currentFood.ate(); // !hidden
               this.props.setScore((value) => value + 1)
