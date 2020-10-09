@@ -10,6 +10,11 @@ class Board extends Component {
     super(props);
     this.pacmanRef = React.createRef();
 
+    this.ghost1Ref = React.createRef();
+    this.ghost2Ref = React.createRef();
+    this.ghost3Ref = React.createRef();
+    this.ghost4Ref = React.createRef();
+
     this.foods = [];
     this.currentFood = [];
 
@@ -25,11 +30,47 @@ class Board extends Component {
   }
 
   componentDidMount () {
-    this.foodInterval = setInterval(this.lookForFood, 100)
+    this.foodInterval = setInterval(this.lookForFood, 100);
+    this.collisionInterval = setInterval(this.lookForCollision, 100);
   }
 
   componentWillUnmount () {
     clearInterval(this.foodInterval);
+    clearInterval(this.collisionInterval);
+  }
+
+  lookForCollision = () => {
+    const ghost1X = this.ghost1Ref.current.state.position.left;
+    const ghost1Y = this.ghost1Ref.current.state.position.top;
+    // const ghost2X = this.ghost2Ref.current.state.position.left;
+    // const ghost2Y = this.ghost2Ref.current.state.position.top;
+    // const ghost3X = this.ghost3Ref.current.state.position.left;
+    // const ghost3Y = this.ghost3Ref.current.state.position.top;
+    // const ghost4X = this.ghost4Ref.current.state.position.left;
+    // const ghost4Y = this.ghost4Ref.current.state.position.top;
+    // TODO: dokoncz dla reszty duchow.
+    const ghostSize = this.ghost1Ref.current.props.size
+
+    const ghost1LastX = ghost1X + ghostSize / 2;
+    const ghost1LastY = ghost1Y + ghostSize / 2;
+
+    const pacmanX = this.pacmanRef.current.state.position.left;
+    const pacmanY = this.pacmanRef.current.state.position.top;
+    const pacmanSize = this.pacmanRef.current.props.size
+
+    const pacmanLastX = pacmanX + pacmanSize / 2;
+    const pacmanLastY = pacmanY + pacmanSize / 2;
+
+    if (
+      (pacmanX >= ghost1X && pacmanX <= ghost1LastX)
+      || (pacmanLastX >= ghost1X && pacmanLastX <= ghost1LastX)) {
+      if ((pacmanY >= ghost1Y && pacmanY <= ghost1LastY)
+        || (pacmanLastY >= ghost1Y && pacmanLastY <= ghost1LastY)) {
+        console.log("duzek 1 spotkal pacmana:)")
+      }
+    }
+
+
   }
 
   lookForFood = () => {
@@ -100,10 +141,10 @@ class Board extends Component {
       <div className="board">
         {foods}
         <Pacman ref={this.pacmanRef}/>
-        <Ghost color={'red'}/>
-        <Ghost color={'yellow'}/>
-        <Ghost color={'pink'}/>
-        <Ghost color={'blue'}/>
+        <Ghost ref={this.ghost1Ref} color={'red'}/>
+        <Ghost ref={this.ghost2Ref} color={'yellow'}/>
+        <Ghost ref={this.ghost3Ref} color={'pink'}/>
+        <Ghost ref={this.ghost4Ref} color={'blue'}/>
       </div>
     )
   }
